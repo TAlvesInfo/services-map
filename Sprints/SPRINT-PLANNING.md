@@ -9,7 +9,7 @@
 ### Phase 1: Foundation
 | Sprint | Focus | Status | Dependencies |
 |--------|-------|--------|--------------|
-| Sprint-01 | Project setup, data extraction | PENDING | Python environment |
+| Sprint-01 | Project setup, data extraction | COMPLETED | Python environment |
 | Sprint-02 | Interactive map with Leaflet/Folium | PENDING | Sprint-01 |
 
 ### Phase 2: Core Features

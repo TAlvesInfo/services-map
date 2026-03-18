@@ -12,7 +12,7 @@
 
 | Sprint ID | Branch | Created | Status | Merged To |
 |-----------|--------|---------|--------|-----------|
-| - | - | - | No sprints created yet | - |
+| Sprint-master-01-foundation | master | 2026-03-18 | Completed | - |
 
 ---
 
@@ -20,7 +20,7 @@
 
 | Branch | Current Sprint | Status |
 |--------|----------------|--------|
-| - | - | No active sprints |
+| master | Sprint-master-01-foundation | Completed |
 
 ---
 

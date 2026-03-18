@@ -1,0 +1,253 @@
+"""Generate an interactive world map showing bizAPIs country coverage.
+
+Uses Folium (Python Leaflet wrapper) to create a self-contained HTML file
+with colored countries and hover/click interactivity.
+"""
+
+import json
+import os
+import sys
+from pathlib import Path
+
+import folium
+import requests
+import yaml
+
+from countries_data import ALPHA2_TO_ALPHA3, get_country_name
+
+# GeoJSON data source (Natural Earth via GitHub)
+GEOJSON_URL = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
+
+
+def download_geojson(data_dir):
+    """Download world GeoJSON if not already cached."""
+    geojson_path = data_dir / "world.geojson"
+
+    if geojson_path.exists():
+        print(f"Using cached GeoJSON: {geojson_path}")
+        with open(geojson_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    print(f"Downloading world GeoJSON from {GEOJSON_URL}...")
+    response = requests.get(GEOJSON_URL, timeout=60)
+    response.raise_for_status()
+
+    geojson = response.json()
+
+    with open(geojson_path, "w", encoding="utf-8") as f:
+        json.dump(geojson, f)
+
+    print(f"Saved to {geojson_path} ({len(geojson['features'])} countries)")
+    return geojson
+
+
+def load_countries_data(data_dir):
+    """Load the countries.json produced by extract_services.py."""
+    countries_path = data_dir / "countries.json"
+
+    if not countries_path.exists():
+        print(f"Error: {countries_path} not found. Run extract_services.py first.")
+        sys.exit(1)
+
+    with open(countries_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def get_country_status(feature_props, countries_data, alpha2_to_alpha3_inv):
+    """Determine the status of a country from GeoJSON feature properties."""
+    iso_a3 = feature_props.get("ISO_A3", "")
+    alpha2 = alpha2_to_alpha3_inv.get(iso_a3, "")
+
+    if alpha2 in countries_data:
+        return countries_data[alpha2]["status"]
+    return "not_covered"
+
+
+def build_map(geojson, countries_data, config):
+    """Build the interactive Folium map."""
+    colors = config.get("colors", {})
+    map_config = config.get("map", {})
+
+    color_map = {
+        "developed": colors.get("developed", "#2ecc71"),
+        "in_development": colors.get("in_development", "#f39c12"),
+        "not_covered": colors.get("not_covered", "#ecf0f1"),
+    }
+
+    # Build inverse mapping: alpha3 -> alpha2
+    alpha3_to_alpha2 = {v: k for k, v in ALPHA2_TO_ALPHA3.items()}
+
+    # Build alpha3 -> country data lookup
+    alpha3_lookup = {}
+    for alpha2, data in countries_data.items():
+        alpha3 = ALPHA2_TO_ALPHA3.get(alpha2)
+        if alpha3:
+            alpha3_lookup[alpha3] = data
+
+    # Create base map
+    center = map_config.get("initial_center", [30, 10])
+    zoom = map_config.get("initial_zoom", 2)
+
+    m = folium.Map(
+        location=center,
+        zoom_start=zoom,
+        tiles="cartodbpositron",
+        min_zoom=2,
+        max_zoom=8,
+        world_copy_jump=True,
+    )
+
+    # Style function for GeoJSON features
+    def style_function(feature):
+        iso_a3 = feature.get("properties", {}).get("ISO_A3", "")
+        country_data = alpha3_lookup.get(iso_a3)
+
+        if country_data:
+            status = country_data["status"]
+        else:
+            status = "not_covered"
+
+        return {
+            "fillColor": color_map.get(status, color_map["not_covered"]),
+            "color": colors.get("border", "#bdc3c7"),
+            "weight": 0.5,
+            "fillOpacity": 0.7,
+        }
+
+    def highlight_function(feature):
+        return {
+            "weight": 2,
+            "color": colors.get("hover", "#3498db"),
+            "fillOpacity": 0.85,
+        }
+
+    # Build tooltip/popup content for each feature
+    def build_popup_html(feature):
+        props = feature.get("properties", {})
+        iso_a3 = props.get("ISO_A3", "")
+        country_name = props.get("ADMIN", props.get("name", "Unknown"))
+        country_data = alpha3_lookup.get(iso_a3)
+
+        if not country_data:
+            return f"<div style='font-family:sans-serif;min-width:150px;'><b>{country_name}</b><br><i>No bizAPIs coverage</i></div>"
+
+        status = country_data["status"]
+        status_label = "Developed" if status == "developed" else "In Development"
+        status_color = color_map.get(status, "#999")
+        services = country_data.get("services", [])
+
+        html = f"""
+        <div style="font-family:sans-serif;min-width:220px;max-width:320px;">
+            <h4 style="margin:0 0 6px 0;border-bottom:2px solid {status_color};padding-bottom:4px;">
+                {country_name}
+            </h4>
+            <div style="margin-bottom:6px;">
+                <span style="background:{status_color};color:#fff;padding:2px 8px;border-radius:3px;font-size:12px;">
+                    {status_label}
+                </span>
+                <span style="font-size:12px;color:#666;margin-left:8px;">
+                    {len(services)} service{'s' if len(services) != 1 else ''}
+                </span>
+            </div>
+            <div style="max-height:200px;overflow-y:auto;">
+        """
+
+        for svc in services:
+            portal = svc.get("portal", "")
+            portal_html = f"<span style='color:#888;font-size:11px;'> — {portal}</span>" if portal else ""
+            html += f"<div style='padding:3px 0;border-bottom:1px solid #eee;font-size:13px;'>{svc['name']}{portal_html}</div>"
+
+        html += "</div></div>"
+        return html
+
+    # Add GeoJSON layer with interactivity
+    geojson_layer = folium.GeoJson(
+        geojson,
+        name="countries",
+        style_function=style_function,
+        highlight_function=highlight_function,
+        tooltip=folium.GeoJsonTooltip(
+            fields=["ADMIN"],
+            aliases=[""],
+            style="font-family:sans-serif;font-size:13px;font-weight:bold;",
+            sticky=True,
+        ),
+    )
+
+    # Add popups to each feature
+    for feature in geojson["features"]:
+        popup_html = build_popup_html(feature)
+        popup = folium.Popup(popup_html, max_width=350)
+
+        iso_a3 = feature.get("properties", {}).get("ISO_A3", "")
+        country_data = alpha3_lookup.get(iso_a3)
+
+        geojson_feature = folium.GeoJson(
+            feature,
+            style_function=style_function,
+            highlight_function=highlight_function,
+        )
+        geojson_feature.add_child(popup)
+        geojson_feature.add_to(m)
+
+    # Add legend
+    legend_html = f"""
+    <div style="
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1000;
+        background: white;
+        padding: 12px 16px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        font-family: sans-serif;
+        font-size: 13px;
+    ">
+        <b style="font-size:14px;">{map_config.get('title', 'bizAPIs Coverage')}</b>
+        <br><br>
+        <span style="background:{color_map['developed']};width:14px;height:14px;display:inline-block;border-radius:3px;vertical-align:middle;"></span>
+        &nbsp;Developed ({sum(1 for c in countries_data.values() if c['status'] == 'developed')})
+        <br>
+        <span style="background:{color_map['in_development']};width:14px;height:14px;display:inline-block;border-radius:3px;vertical-align:middle;"></span>
+        &nbsp;In Development ({sum(1 for c in countries_data.values() if c['status'] == 'in_development')})
+        <br>
+        <span style="background:{color_map['not_covered']};width:14px;height:14px;display:inline-block;border-radius:3px;vertical-align:middle;border:1px solid #ddd;"></span>
+        &nbsp;Not Covered
+    </div>
+    """
+    m.get_root().html.add_child(folium.Element(legend_html))
+
+    return m
+
+
+def main():
+    project_root = Path(__file__).parent.parent
+    config_path = project_root / "config.yaml"
+    data_dir = project_root / "data"
+
+    # Load config
+    with open(config_path, "r", encoding="utf-8") as f:
+        config = yaml.safe_load(f)
+
+    # Download/load GeoJSON
+    geojson = download_geojson(data_dir)
+
+    # Load countries data
+    countries_data = load_countries_data(data_dir)
+    print(f"Loaded {len(countries_data)} countries with services")
+
+    # Build map
+    m = build_map(geojson, countries_data, config)
+
+    # Save output
+    output_file = project_root / config.get("output", {}).get("html_file", "output/index.html")
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+
+    m.save(str(output_file))
+    print(f"\nMap saved to: {output_file}")
+    print(f"Open in browser to view the interactive map.")
+
+
+if __name__ == "__main__":
+    main()

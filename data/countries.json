@@ -1,0 +1,436 @@
+{
+  "AR": {
+    "name": "Argentina",
+    "code": "AR",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "AU": {
+    "name": "Australia",
+    "code": "AU",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "BR": {
+    "name": "Brazil",
+    "code": "BR",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "CH": {
+    "name": "Switzerland",
+    "code": "CH",
+    "status": "developed",
+    "service_count": 2,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "company-search",
+        "identifier": "COMPANY_SEARCH",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "CL": {
+    "name": "Chile",
+    "code": "CL",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "CZ": {
+    "name": "Czech Republic",
+    "code": "CZ",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "FI": {
+    "name": "Finland",
+    "code": "FI",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "FR": {
+    "name": "France",
+    "code": "FR",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "rne",
+        "identifier": "RNE",
+        "portal": "INPI - Institut National de la Propriete Industrielle",
+        "portal_url": "https://data.inpi.fr/export/companies/"
+      }
+    ]
+  },
+  "HU": {
+    "name": "Hungary",
+    "code": "HU",
+    "status": "developed",
+    "service_count": 4,
+    "services": [
+      {
+        "name": "company-data",
+        "identifier": "COMPANY_DATA",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "company-registry-free",
+        "identifier": "COMPANY_REGISTRY_FREE",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "tax-debt-free",
+        "identifier": "TAX_DEBT_FREE",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "IE": {
+    "name": "Ireland",
+    "code": "IE",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "IT": {
+    "name": "Italy",
+    "code": "IT",
+    "status": "developed",
+    "service_count": 3,
+    "services": [
+      {
+        "name": "company-data",
+        "identifier": "COMPANY_DATA",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "company-data-debug",
+        "identifier": "COMPANY_DATA_DEBUG",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "company-data-free",
+        "identifier": "COMPANY_DATA_FREE",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "NO": {
+    "name": "Norway",
+    "code": "NO",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "NZ": {
+    "name": "New Zealand",
+    "code": "NZ",
+    "status": "developed",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry",
+        "identifier": "COMPANY_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "PL": {
+    "name": "Poland",
+    "code": "PL",
+    "status": "developed",
+    "service_count": 8,
+    "services": [
+      {
+        "name": "beneficial-owner-registry",
+        "identifier": "BENEFICIAL_OWNER_REGISTRY",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "beneficial-owner-registry-service",
+        "identifier": "BENEFICIAL_OWNER_REGISTRY_SERVICE",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "court-registry-current-extract",
+        "identifier": "COURT_REGISTRY_CURRENT_EXTRACT",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "court-registry-current-extract-service",
+        "identifier": "COURT_REGISTRY_CURRENT_EXTRACT_SERVICE",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "court-registry-financials",
+        "identifier": "COURT_REGISTRY_FINANCIALS",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "court-registry-financials-service",
+        "identifier": "COURT_REGISTRY_FINANCIALS_SERVICE",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "court-registry-full-extract",
+        "identifier": "COURT_REGISTRY_FULL_EXTRACT",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "court-registry-full-extract-service",
+        "identifier": "COURT_REGISTRY_FULL_EXTRACT_SERVICE",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
+  "PT": {
+    "name": "Portugal",
+    "code": "PT",
+    "status": "developed",
+    "service_count": 21,
+    "services": [
+      {
+        "name": "at-aggregator",
+        "identifier": "AT-AGGREGATOR",
+        "portal": "Autoridade Tributária",
+        "portal_url": "https://www.acesso.gov.pt/v2/loginForm?partID=PFAP&path=/geral/dashboard"
+      },
+      {
+        "name": "at-debtors-list",
+        "identifier": "AT-DEBTORS-LIST",
+        "portal": "Autoridade Tributaria",
+        "portal_url": "https://static.portaldasfinancas.gov.pt/app/devedores_static/"
+      },
+      {
+        "name": "at-divida",
+        "identifier": "AT-DIVIDA",
+        "portal": "Autoridade Tributária",
+        "portal_url": "https://www.acesso.gov.pt/v2/loginForm?partID=PFAP&path=/geral/dashboard"
+      },
+      {
+        "name": "at-information",
+        "identifier": "AT_INFORMATION",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "at-information-service",
+        "identifier": "AT_INFORMATION_SERVICE",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "at-irc",
+        "identifier": "AT-IRC",
+        "portal": "Autoridade Tributária",
+        "portal_url": "https://www.acesso.gov.pt/v2/loginForm?partID=PFAP&path=/geral/dashboard"
+      },
+      {
+        "name": "at-iva-dp",
+        "identifier": "AT-IVA-DP",
+        "portal": "Autoridade Tributária",
+        "portal_url": "https://www.acesso.gov.pt/v2/loginForm?partID=PFAP&path=/geral/dashboard"
+      },
+      {
+        "name": "at-iva-enquadramento",
+        "identifier": "AT-IVA-ENQUADRAMENTO",
+        "portal": "Autoridade Tributária",
+        "portal_url": "https://www.acesso.gov.pt/v2/loginForm?partID=PFAP&path=/geral/dashboard"
+      },
+      {
+        "name": "at-iva-sa",
+        "identifier": "AT-IVA-SA",
+        "portal": "Autoridade Tributária",
+        "portal_url": "https://www.acesso.gov.pt/v2/loginForm?partID=PFAP&path=/geral/dashboard"
+      },
+      {
+        "name": "cpp",
+        "identifier": "CPP",
+        "portal": "Predial Online - Instituto dos Registos e Notariado",
+        "portal_url": "https://www.predialonline.pt/PredialOnline/FRM005RPOLCP_validar.action"
+      },
+      {
+        "name": "cprc-by-nif",
+        "identifier": "CPRC_BY_NIF",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "imdb",
+        "identifier": "IMDB",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "inpi-trademark-extraction",
+        "identifier": "INPI-TRADEMARK-EXTRACTION",
+        "portal": "INPI - Instituto Nacional da Propriedade Industrial",
+        "portal_url": "https://servicosonline.inpi.justica.gov.pt/pesquisas/Controller"
+      },
+      {
+        "name": "irs-by-code",
+        "identifier": "IRS-BY-CODE",
+        "portal": "Autoridade Tributaria",
+        "portal_url": "https://www.portaldasfinancas.gov.pt/pt/validacaoCertidao.action"
+      },
+      {
+        "name": "irs-by-user-password",
+        "identifier": "IRS-BY-USER-PASSWORD",
+        "portal": "Autoridade Tributaria",
+        "portal_url": "https://irs.portaldasfinancas.gov.pt/comprovativo/consultar"
+      },
+      {
+        "name": "northdata-company-search",
+        "identifier": "NORTHDATA_COMPANY_SEARCH",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "seguro-by-matricula",
+        "identifier": "SEGURO-BY-MATRICULA",
+        "portal": "ASF - Autoridade de Supervisao de Seguros e Fundos de Pensoes",
+        "portal_url": "https://www.consumidor.asf.com.pt/servi%C3%A7os/verificar-seguro-atrav%C3%A9s-da-matr%C3%ADcula"
+      },
+      {
+        "name": "ss-debtors-list",
+        "identifier": "SS-DEBTORS-LIST",
+        "portal": "Seguranca Social",
+        "portal_url": "https://www.seg-social.pt/lista-de-devedores-na-seguranca-social"
+      },
+      {
+        "name": "ss-no-debt",
+        "identifier": "SS-NO-DEBT",
+        "portal": "Seguranca Social",
+        "portal_url": "https://www.seg-social.pt/ptss/ascd/pesquisa-entidade"
+      },
+      {
+        "name": "ss-sa",
+        "identifier": "SS-SA",
+        "portal": "Seguranca Social",
+        "portal_url": "https://app.seg-social.pt/ptss/contacorrente/saldo!saldo.action"
+      },
+      {
+        "name": "vehicle-by-nif",
+        "identifier": "VEHICLE-BY-NIF",
+        "portal": "Autoridade Tributária",
+        "portal_url": "https://veiculos.portaldasfinancas.gov.pt/consulta/automoveis/consultar"
+      }
+    ]
+  },
+  "RO": {
+    "name": "Romania",
+    "code": "RO",
+    "status": "developed",
+    "service_count": 3,
+    "services": [
+      {
+        "name": "company-data",
+        "identifier": "COMPANY_DATA",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "court-records",
+        "identifier": "COURT_RECORDS",
+        "portal": "",
+        "portal_url": ""
+      },
+      {
+        "name": "tax-debt",
+        "identifier": "TAX_DEBT",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  }
+}
