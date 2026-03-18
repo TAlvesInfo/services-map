@@ -88,9 +88,11 @@ def build_map(geojson, countries_data, config):
         location=center,
         zoom_start=zoom,
         tiles="cartodbpositron",
-        min_zoom=2,
-        max_zoom=8,
-        world_copy_jump=True,
+        min_zoom=3,
+        max_zoom=7,
+        world_copy_jump=False,
+        no_wrap=True,
+        max_bounds=True,
     )
 
     def get_alpha2(feature):
