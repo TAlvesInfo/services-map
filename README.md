@@ -1,4 +1,6 @@
-# ReadMe Coverage Map
+# services-map
+
+Map with the bizAPIs services available per geography.
 
 Interactive world map showing bizAPIs country coverage and services, designed to be embedded in ReadMe documentation.
 
