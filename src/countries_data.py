@@ -18,6 +18,7 @@ COUNTRY_NAMES = {
     "PL": "Poland",
     "PT": "Portugal",
     "RO": "Romania",
+    "US": "United States",
 }
 
 # ISO alpha-2 to alpha-3 mapping (GeoJSON uses alpha-3)

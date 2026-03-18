@@ -48,8 +48,4 @@ countries:
     - NZ   # New Zealand (1 service)
 
   in_development:
-    # Add country codes here as development begins
-    # Example:
-    # - DE   # Germany
-    # - ES   # Spain
-    []
+    - US   # United States (CA/FL/NY)
