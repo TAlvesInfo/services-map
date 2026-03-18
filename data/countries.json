@@ -432,5 +432,12 @@
         "portal_url": ""
       }
     ]
+  },
+  "US": {
+    "name": "United States",
+    "code": "US",
+    "status": "in_development",
+    "service_count": 0,
+    "services": []
   }
 }

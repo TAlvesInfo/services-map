@@ -174,6 +174,17 @@ def build_countries_json(country_services, config_path=None):
             "services": sorted(services, key=lambda s: s["name"]),
         }
 
+    # Add in_development countries that have no services yet
+    for country_code in in_development:
+        if country_code not in countries:
+            countries[country_code] = {
+                "name": get_country_name(country_code),
+                "code": country_code,
+                "status": "in_development",
+                "service_count": 0,
+                "services": [],
+            }
+
     return countries
 
 
