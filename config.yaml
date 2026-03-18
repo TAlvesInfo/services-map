@@ -1,0 +1,55 @@
+# ReadMe Coverage Map Configuration
+# Country status classification for the interactive map
+
+# Path to bizAPIs service metadata YAML files
+metadata_path: "C:\\Users\\talves\\gitlab\\environment-setup\\service-metadata"
+
+# Alternative: path to service instructions directory
+instructions_path: "C:\\Users\\talves\\gitlab\\environment-setup\\instructions\\services"
+
+# Output configuration
+output:
+  html_file: "output/index.html"
+  data_file: "data/countries.json"
+
+# Map configuration
+map:
+  title: "bizAPIs Global Coverage"
+  initial_zoom: 2
+  initial_center: [30, 10]  # Centered between Europe and Americas
+
+# Color scheme
+colors:
+  developed: "#2ecc71"        # Green - fully developed
+  in_development: "#f39c12"   # Orange - currently being developed
+  not_covered: "#ecf0f1"      # Light gray - no coverage
+  border: "#bdc3c7"           # Border color
+  hover: "#3498db"            # Hover highlight
+
+# Country classification
+# ISO 3166-1 alpha-2 codes
+countries:
+  developed:
+    - PT   # Portugal (22 services)
+    - FR   # France (1 service)
+    - IT   # Italy (3 services)
+    - PL   # Poland (8+ services)
+    - RO   # Romania (3 services)
+    - HU   # Hungary (4 services)
+    - CH   # Switzerland (2 services)
+    - CZ   # Czech Republic (2 services)
+    - AU   # Australia (1 service)
+    - BR   # Brazil (1 service)
+    - AR   # Argentina (1 service)
+    - CL   # Chile (1 service)
+    - FI   # Finland (1 service)
+    - IE   # Ireland (1 service)
+    - NO   # Norway (2 services)
+    - NZ   # New Zealand (1 service)
+
+  in_development:
+    # Add country codes here as development begins
+    # Example:
+    # - DE   # Germany
+    # - ES   # Spain
+    []

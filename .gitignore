@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Sprint local state (v2.0+)
+Sprints/.sprint-state.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated output (optional - uncomment to track)
+# output/

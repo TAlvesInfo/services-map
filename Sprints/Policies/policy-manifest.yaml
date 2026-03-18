@@ -1,0 +1,38 @@
+# Policy Manifest
+# Controls which policies are active for this project
+
+version: "1.0"
+
+# External policy source
+external:
+  repository: ""
+  branch: "main"
+  sync_mode: "copy"
+
+# Policy status
+policies:
+  core:
+    POLICY-General-Principles: enabled
+    POLICY-API-Design: disabled
+    POLICY-Database-Guidelines: disabled
+    POLICY-Git-Version-Control: enabled
+    POLICY-Performance: disabled
+    POLICY-Documentation: enabled
+
+  templates:
+    POLICY-Testing: disabled
+    POLICY-Security: disabled
+    POLICY-Backend-Guidelines: disabled
+    POLICY-Frontend-Guidelines: disabled
+    POLICY-Sprint-Documentation: enabled
+    POLICY-AI-Assistant: enabled
+
+  local:
+    POLICY-AI-Context-Management: enabled
+    POLICY-Vibe-Sprint: enabled
+    POLICY-Global-Scheduler: enabled
+    POLICY-AI-Discoverability: disabled
+
+# Variables for template substitution
+variables:
+  PROJECT_PREFIX: "RMAP"
