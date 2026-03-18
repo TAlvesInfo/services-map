@@ -5,7 +5,6 @@ with colored countries and hover/click interactivity.
 """
 
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -17,6 +16,20 @@ from countries_data import ALPHA2_TO_ALPHA3, get_country_name
 
 # GeoJSON data source (Natural Earth via GitHub)
 GEOJSON_URL = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
+
+# Property keys used by this GeoJSON source
+PROP_ISO_A3 = "ISO3166-1-Alpha-3"
+PROP_ISO_A2 = "ISO3166-1-Alpha-2"
+PROP_NAME = "name"
+
+# Fallback: map country names to alpha-2 codes for GeoJSON entries with -99 codes
+NAME_TO_ALPHA2 = {
+    "France": "FR",
+    "Norway": "NO",
+    "Kosovo": "XK",
+    "Somaliland": "SO",
+    "Northern Cyprus": "CY",
+}
 
 
 def download_geojson(data_dir):
@@ -53,16 +66,6 @@ def load_countries_data(data_dir):
         return json.load(f)
 
 
-def get_country_status(feature_props, countries_data, alpha2_to_alpha3_inv):
-    """Determine the status of a country from GeoJSON feature properties."""
-    iso_a3 = feature_props.get("ISO_A3", "")
-    alpha2 = alpha2_to_alpha3_inv.get(iso_a3, "")
-
-    if alpha2 in countries_data:
-        return countries_data[alpha2]["status"]
-    return "not_covered"
-
-
 def build_map(geojson, countries_data, config):
     """Build the interactive Folium map."""
     colors = config.get("colors", {})
@@ -74,15 +77,8 @@ def build_map(geojson, countries_data, config):
         "not_covered": colors.get("not_covered", "#ecf0f1"),
     }
 
-    # Build inverse mapping: alpha3 -> alpha2
-    alpha3_to_alpha2 = {v: k for k, v in ALPHA2_TO_ALPHA3.items()}
-
-    # Build alpha3 -> country data lookup
-    alpha3_lookup = {}
-    for alpha2, data in countries_data.items():
-        alpha3 = ALPHA2_TO_ALPHA3.get(alpha2)
-        if alpha3:
-            alpha3_lookup[alpha3] = data
+    # Build alpha-2 lookup from GeoJSON (this source has both alpha-2 and alpha-3)
+    # countries_data is keyed by alpha-2 (PT, FR, etc.)
 
     # Create base map
     center = map_config.get("initial_center", [30, 10])
@@ -97,16 +93,25 @@ def build_map(geojson, countries_data, config):
         world_copy_jump=True,
     )
 
-    # Style function for GeoJSON features
+    def get_alpha2(feature):
+        """Get alpha-2 code from feature, with name-based fallback for -99 entries."""
+        props = feature.get("properties", {})
+        alpha2 = props.get(PROP_ISO_A2, "")
+        if alpha2 and alpha2 != "-99":
+            return alpha2
+        # Fallback: match by country name
+        name = props.get(PROP_NAME, "")
+        return NAME_TO_ALPHA2.get(name, "")
+
+    def get_status(feature):
+        """Get country status from feature properties using alpha-2 code."""
+        alpha2 = get_alpha2(feature)
+        if alpha2 in countries_data:
+            return countries_data[alpha2]["status"]
+        return "not_covered"
+
     def style_function(feature):
-        iso_a3 = feature.get("properties", {}).get("ISO_A3", "")
-        country_data = alpha3_lookup.get(iso_a3)
-
-        if country_data:
-            status = country_data["status"]
-        else:
-            status = "not_covered"
-
+        status = get_status(feature)
         return {
             "fillColor": color_map.get(status, color_map["not_covered"]),
             "color": colors.get("border", "#bdc3c7"),
@@ -121,12 +126,11 @@ def build_map(geojson, countries_data, config):
             "fillOpacity": 0.85,
         }
 
-    # Build tooltip/popup content for each feature
     def build_popup_html(feature):
         props = feature.get("properties", {})
-        iso_a3 = props.get("ISO_A3", "")
-        country_name = props.get("ADMIN", props.get("name", "Unknown"))
-        country_data = alpha3_lookup.get(iso_a3)
+        alpha2 = get_alpha2(feature)
+        country_name = props.get(PROP_NAME, "Unknown")
+        country_data = countries_data.get(alpha2)
 
         if not country_data:
             return f"<div style='font-family:sans-serif;min-width:150px;'><b>{country_name}</b><br><i>No bizAPIs coverage</i></div>"
@@ -160,35 +164,26 @@ def build_map(geojson, countries_data, config):
         html += "</div></div>"
         return html
 
-    # Add GeoJSON layer with interactivity
-    geojson_layer = folium.GeoJson(
-        geojson,
-        name="countries",
-        style_function=style_function,
-        highlight_function=highlight_function,
-        tooltip=folium.GeoJsonTooltip(
-            fields=["ADMIN"],
-            aliases=[""],
-            style="font-family:sans-serif;font-size:13px;font-weight:bold;",
-            sticky=True,
-        ),
-    )
-
-    # Add popups to each feature
+    # Add each country as its own GeoJson layer with popup
     for feature in geojson["features"]:
         popup_html = build_popup_html(feature)
         popup = folium.Popup(popup_html, max_width=350)
 
-        iso_a3 = feature.get("properties", {}).get("ISO_A3", "")
-        country_data = alpha3_lookup.get(iso_a3)
+        country_name = feature.get("properties", {}).get(PROP_NAME, "")
+        tooltip = folium.Tooltip(
+            country_name,
+            style="font-family:sans-serif;font-size:13px;font-weight:bold;",
+            sticky=True,
+        )
 
-        geojson_feature = folium.GeoJson(
+        geojson_layer = folium.GeoJson(
             feature,
             style_function=style_function,
             highlight_function=highlight_function,
         )
-        geojson_feature.add_child(popup)
-        geojson_feature.add_to(m)
+        geojson_layer.add_child(popup)
+        geojson_layer.add_child(tooltip)
+        geojson_layer.add_to(m)
 
     # Add legend
     legend_html = f"""
@@ -236,6 +231,19 @@ def main():
     # Load countries data
     countries_data = load_countries_data(data_dir)
     print(f"Loaded {len(countries_data)} countries with services")
+
+    # Verify matching: check how many countries_data entries match GeoJSON features
+    matched = set()
+    for feat in geojson["features"]:
+        a2 = feat.get("properties", {}).get(PROP_ISO_A2, "")
+        if a2 == "-99":
+            a2 = NAME_TO_ALPHA2.get(feat.get("properties", {}).get(PROP_NAME, ""), "")
+        if a2 in countries_data:
+            matched.add(a2)
+    print(f"Matched {len(matched)}/{len(countries_data)} countries to GeoJSON features")
+    unmatched = set(countries_data.keys()) - matched
+    if unmatched:
+        print(f"Unmatched: {unmatched}")
 
     # Build map
     m = build_map(geojson, countries_data, config)
