@@ -223,17 +223,11 @@
     "name": "Poland",
     "code": "PL",
     "status": "developed",
-    "service_count": 8,
+    "service_count": 4,
     "services": [
       {
         "name": "beneficial-owner-registry",
         "identifier": "BENEFICIAL_OWNER_REGISTRY",
-        "portal": "",
-        "portal_url": ""
-      },
-      {
-        "name": "beneficial-owner-registry-service",
-        "identifier": "BENEFICIAL_OWNER_REGISTRY_SERVICE",
         "portal": "",
         "portal_url": ""
       },
@@ -244,32 +238,14 @@
         "portal_url": ""
       },
       {
-        "name": "court-registry-current-extract-service",
-        "identifier": "COURT_REGISTRY_CURRENT_EXTRACT_SERVICE",
-        "portal": "",
-        "portal_url": ""
-      },
-      {
         "name": "court-registry-financials",
         "identifier": "COURT_REGISTRY_FINANCIALS",
         "portal": "",
         "portal_url": ""
       },
       {
-        "name": "court-registry-financials-service",
-        "identifier": "COURT_REGISTRY_FINANCIALS_SERVICE",
-        "portal": "",
-        "portal_url": ""
-      },
-      {
         "name": "court-registry-full-extract",
         "identifier": "COURT_REGISTRY_FULL_EXTRACT",
-        "portal": "",
-        "portal_url": ""
-      },
-      {
-        "name": "court-registry-full-extract-service",
-        "identifier": "COURT_REGISTRY_FULL_EXTRACT_SERVICE",
         "portal": "",
         "portal_url": ""
       }
@@ -279,7 +255,7 @@
     "name": "Portugal",
     "code": "PT",
     "status": "developed",
-    "service_count": 21,
+    "service_count": 20,
     "services": [
       {
         "name": "at-aggregator",
@@ -302,12 +278,6 @@
       {
         "name": "at-information",
         "identifier": "AT_INFORMATION",
-        "portal": "",
-        "portal_url": ""
-      },
-      {
-        "name": "at-information-service",
-        "identifier": "AT_INFORMATION_SERVICE",
         "portal": "",
         "portal_url": ""
       },

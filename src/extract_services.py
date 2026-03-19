@@ -80,6 +80,11 @@ def scan_instructions_directory(instructions_path):
                 continue
 
             service_name = json_file.stem
+            # Skip duplicate "-service" suffixed entries (e.g., "court-registry-current-extract-service")
+            if service_name.endswith("-service"):
+                base_name = service_name[: -len("-service")]
+                if (inner_dir / f"{base_name}.json").exists():
+                    continue
             services.append({
                 "name": service_name,
                 "identifier": service_name.upper().replace("-", "_"),
