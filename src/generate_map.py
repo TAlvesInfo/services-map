@@ -14,6 +14,66 @@ import yaml
 
 from countries_data import ALPHA2_TO_ALPHA3, get_country_name
 
+# Base URL for the bizAPIs developer docs
+DOCS_BASE = "https://developers.bizapis.com/v3.0/reference"
+
+# Mapping: service name -> (page_slug, anchor_fragment)
+# Built from the ReadMe docs navigation structure
+SERVICE_DOC_LINKS = {
+    # Portugal - AT Services
+    "at-aggregator": ("at-services", "at-aggregator-autoridade-tributária-agregador"),
+    "at-divida": ("at-services", "at-divida-autoridade-tributária-dívidanão-dívida"),
+    "at-irc": ("at-services", "at-irc-autoridade-tributária-imposto-sobre-o-rendimento"),
+    "at-iva-sa": ("at-services", "at-iva--sa-autoridade-tributária-iva-situação-atual"),
+    "at-iva-enquadramento": ("at-services", "at-iva-enquadramento-autoridade-tributária-enquadramento-do-iva"),
+    "at-iva-dp": ("at-services", "at-iva-dp-autoridade-tributária-iva-declarações-periódicas"),
+    "at-debtors-list": ("at-services", "serviços-at-autoridade-tributária"),
+    "at-information": ("at-services", "serviços-at-autoridade-tributária"),
+    "at-information-service": ("at-services", "serviços-at-autoridade-tributária"),
+    # Portugal - Property Registration
+    "cpp": ("property-registration", "cpp-certidão-permanente-predial"),
+    "cprc-by-nif": ("property-registration", "cprc-certidão-permanente-de-registo-comercial"),
+    # Portugal - Business & Financial
+    "northdata-company-search": ("business-financial", "negócios-e-finanças"),
+    # Portugal - Tax Returns (IRS)
+    "irs-by-code": ("tax-returns-irs", "irsbycode-imposto-sobre-o-rendimento-das-pessoas-singulares"),
+    "irs-by-user-password": ("tax-returns-irs", "irsbyuserpassword-imposto-sobre-o-rendimento-das-pessoas-singulares"),
+    # Portugal - Social Security
+    "ss-no-debt": ("social-security", "ss-no-debt-segurança-social"),
+    "ss-sa": ("social-security", "ss-sa-segurança-social"),
+    "ss-debtors-list": ("social-security", "segurança-social"),
+    # Portugal - Other Services
+    "seguro-by-matricula": ("other-services", "seguro-by-matricula"),
+    "inpi-trademark-extraction": ("other-services", "inpi-trademark-extraction"),
+    "vehicle-by-nif": ("other-services", "outros-serviços"),
+    # France
+    "rne": ("french-services", "rne"),
+    # Poland - KRS
+    "court-registry-current-extract": ("polish-krs-services", "court-registry-current-extract"),
+    "court-registry-current-extract-service": ("polish-krs-services", "court-registry-current-extract"),
+    "court-registry-full-extract": ("polish-krs-services", "court-registry-full-extract"),
+    "court-registry-full-extract-service": ("polish-krs-services", "court-registry-full-extract"),
+    "court-registry-financials": ("polish-krs-services", "serviços-krs-registo-comercial"),
+    "court-registry-financials-service": ("polish-krs-services", "serviços-krs-registo-comercial"),
+    # Poland - CRBR
+    "beneficial-owner-registry": ("polish-crbr-services", "beneficial-owner-registry"),
+    "beneficial-owner-registry-service": ("polish-crbr-services", "beneficial-owner-registry"),
+    # Romania
+    "company-data": ("romanian-services", "company-tax-data"),
+    "court-records": ("romanian-services", "serviços-roménia"),
+    "tax-debt": ("romanian-services", "serviços-roménia"),
+}
+
+
+def get_service_doc_url(service_name):
+    """Get the full documentation URL for a service, or None if not mapped."""
+    entry = SERVICE_DOC_LINKS.get(service_name)
+    if entry:
+        page_slug, anchor = entry
+        return f"{DOCS_BASE}/{page_slug}#{anchor}"
+    return None
+
+
 # GeoJSON data source (Natural Earth via GitHub)
 GEOJSON_URL = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
 
@@ -161,7 +221,12 @@ def build_map(geojson, countries_data, config):
         for svc in services:
             portal = svc.get("portal", "")
             portal_html = f"<span style='color:#888;font-size:11px;'> — {portal}</span>" if portal else ""
-            html += f"<div style='padding:3px 0;border-bottom:1px solid #eee;font-size:13px;'>{svc['name']}{portal_html}</div>"
+            doc_url = get_service_doc_url(svc["name"])
+            if doc_url:
+                name_html = f"<a href='{doc_url}' target='_blank' style='color:#2980b9;text-decoration:none;font-weight:500;' onmouseover=\"this.style.textDecoration='underline'\" onmouseout=\"this.style.textDecoration='none'\">{svc['name']}</a>"
+            else:
+                name_html = svc["name"]
+            html += f"<div style='padding:3px 0;border-bottom:1px solid #eee;font-size:13px;'>{name_html}{portal_html}</div>"
 
         html += "</div></div>"
         return html
