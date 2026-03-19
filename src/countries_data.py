@@ -8,6 +8,7 @@ COUNTRY_NAMES = {
     "CH": "Switzerland",
     "CL": "Chile",
     "CZ": "Czech Republic",
+    "ES": "Spain",
     "FI": "Finland",
     "FR": "France",
     "HU": "Hungary",

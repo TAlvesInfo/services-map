@@ -29,23 +29,26 @@ colors:
 # Country classification
 # ISO 3166-1 alpha-2 codes
 countries:
+  # Countries with documentation on developers.bizapis.com
   developed:
-    - PT   # Portugal (22 services)
-    - FR   # France (1 service)
-    - IT   # Italy (3 services)
-    - PL   # Poland (8+ services)
-    - RO   # Romania (3 services)
-    - HU   # Hungary (4 services)
-    - CH   # Switzerland (2 services)
-    - CZ   # Czech Republic (2 services)
-    - AU   # Australia (1 service)
-    - BR   # Brazil (1 service)
-    - AR   # Argentina (1 service)
-    - CL   # Chile (1 service)
-    - FI   # Finland (1 service)
-    - IE   # Ireland (1 service)
-    - NO   # Norway (2 services)
-    - NZ   # New Zealand (1 service)
+    - PT   # Portugal
+    - FR   # France
+    - PL   # Poland
+    - RO   # Romania
 
+  # Countries with services but not yet documented
   in_development:
-    - US   # United States (CA/FL/NY)
+    - IT   # Italy
+    - HU   # Hungary
+    - CH   # Switzerland
+    - CZ   # Czech Republic
+    - AU   # Australia
+    - BR   # Brazil
+    - AR   # Argentina
+    - CL   # Chile
+    - FI   # Finland
+    - IE   # Ireland
+    - "NO"   # Norway
+    - NZ   # New Zealand
+    - ES   # Spain
+    - US   # United States

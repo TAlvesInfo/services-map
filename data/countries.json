@@ -2,7 +2,7 @@
   "AR": {
     "name": "Argentina",
     "code": "AR",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 1,
     "services": [
       {
@@ -16,7 +16,7 @@
   "AU": {
     "name": "Australia",
     "code": "AU",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 1,
     "services": [
       {
@@ -30,7 +30,7 @@
   "BR": {
     "name": "Brazil",
     "code": "BR",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 1,
     "services": [
       {
@@ -44,7 +44,7 @@
   "CH": {
     "name": "Switzerland",
     "code": "CH",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 2,
     "services": [
       {
@@ -64,7 +64,7 @@
   "CL": {
     "name": "Chile",
     "code": "CL",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 1,
     "services": [
       {
@@ -78,7 +78,7 @@
   "CZ": {
     "name": "Czech Republic",
     "code": "CZ",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 1,
     "services": [
       {
@@ -89,10 +89,24 @@
       }
     ]
   },
+  "ES": {
+    "name": "Spain",
+    "code": "ES",
+    "status": "in_development",
+    "service_count": 1,
+    "services": [
+      {
+        "name": "company-registry-search",
+        "identifier": "COMPANY_REGISTRY_SEARCH",
+        "portal": "",
+        "portal_url": ""
+      }
+    ]
+  },
   "FI": {
     "name": "Finland",
     "code": "FI",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 1,
     "services": [
       {
@@ -120,30 +134,18 @@
   "HU": {
     "name": "Hungary",
     "code": "HU",
-    "status": "developed",
-    "service_count": 4,
+    "status": "in_development",
+    "service_count": 2,
     "services": [
       {
-        "name": "company-data",
-        "identifier": "COMPANY_DATA",
+        "name": "company-registry-data",
+        "identifier": "COMPANY_REGISTRY_DATA",
         "portal": "",
         "portal_url": ""
       },
       {
-        "name": "company-registry",
-        "identifier": "COMPANY_REGISTRY",
-        "portal": "",
-        "portal_url": ""
-      },
-      {
-        "name": "company-registry-free",
-        "identifier": "COMPANY_REGISTRY_FREE",
-        "portal": "",
-        "portal_url": ""
-      },
-      {
-        "name": "tax-debt-free",
-        "identifier": "TAX_DEBT_FREE",
+        "name": "company-registry-snapshot",
+        "identifier": "COMPANY_REGISTRY_SNAPSHOT",
         "portal": "",
         "portal_url": ""
       }
@@ -152,7 +154,7 @@
   "IE": {
     "name": "Ireland",
     "code": "IE",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 1,
     "services": [
       {
@@ -166,7 +168,7 @@
   "IT": {
     "name": "Italy",
     "code": "IT",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 3,
     "services": [
       {
@@ -192,7 +194,7 @@
   "NO": {
     "name": "Norway",
     "code": "NO",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 1,
     "services": [
       {
@@ -206,7 +208,7 @@
   "NZ": {
     "name": "New Zealand",
     "code": "NZ",
-    "status": "developed",
+    "status": "in_development",
     "service_count": 1,
     "services": [
       {
