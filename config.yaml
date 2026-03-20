@@ -35,11 +35,12 @@ countries:
     - FR   # France
     - PL   # Poland
     - RO   # Romania
+    - ES   # Spain
+    - HU   # Hungary
 
   # Countries with services but not yet documented
   in_development:
     - IT   # Italy
-    - HU   # Hungary
     - CH   # Switzerland
     - CZ   # Czech Republic
     - AU   # Australia
@@ -50,5 +51,4 @@ countries:
     - IE   # Ireland
     - "NO"   # Norway
     - NZ   # New Zealand
-    - ES   # Spain
     - US   # United States

@@ -58,6 +58,11 @@ SERVICE_DOC_LINKS = {
     # Poland - CRBR
     "beneficial-owner-registry": ("polish-crbr-services", "beneficial-owner-registry"),
     "beneficial-owner-registry-service": ("polish-crbr-services", "beneficial-owner-registry"),
+    # Spain
+    "company-registry-search": ("spanish-services", "company-registry-search"),
+    # Hungary
+    "company-registry-data": ("hungarian-services-1", "company-registry-data"),
+    "company-registry-snapshot": ("hungarian-services-1", "company-registry-snapshot"),
     # Romania
     "company-data": ("romanian-services", "company-tax-data"),
     "court-records": ("romanian-services", "serviços-roménia"),

@@ -92,7 +92,7 @@
   "ES": {
     "name": "Spain",
     "code": "ES",
-    "status": "in_development",
+    "status": "developed",
     "service_count": 1,
     "services": [
       {
@@ -134,7 +134,7 @@
   "HU": {
     "name": "Hungary",
     "code": "HU",
-    "status": "in_development",
+    "status": "developed",
     "service_count": 2,
     "services": [
       {
